@@ -45,7 +45,7 @@ $csrfToken = generateCsrfToken();
                 ></script>
             </div>
             <div>
-                <small>※ &lt;input type=&quot;hidden&quot; name=&quot;payjp-token&quot;&gt; の value に token が自動的にセットされます。</small><br />
+                <small>※ <?php echo htmlspecialchars('<input type="hidden" name="payjp-token">'); ?> の value に token が自動的にセットされます。</small><br />
                 <small>※ 生成されたトークン: <span id="created-token"></span></small>
             </div>
         </div>
