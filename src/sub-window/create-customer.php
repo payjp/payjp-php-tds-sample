@@ -20,7 +20,6 @@ $customerEmail = $_POST['customer_email'] ?? '';
 $payjpToken = $_POST['payjp-token'] ?? '';
 
 Payjp\Payjp::$apiKey = $_ENV['PAYJP_SECRET_KEY'] ?? ''; // `sk_` から始まる秘密鍵を設定してください。
-
 $customer = Payjp\Customer::create([
     'card' => $payjpToken,
     'email' => $customerEmail,
