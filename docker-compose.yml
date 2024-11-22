@@ -13,7 +13,9 @@ services:
     working_dir: /var/www/app
 
   app:
-    image: php:8-fpm-alpine
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - ./src:/var/www/app:cached
     networks:
