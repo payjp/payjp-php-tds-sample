@@ -1,0 +1,25 @@
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./src:/var/www/app:cached
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:cached
+    depends_on:
+      - app
+    networks:
+      - internal-network
+    working_dir: /var/www/app
+
+  app:
+    image: php:8-fpm-alpine
+    volumes:
+      - ./src:/var/www/app:cached
+    networks:
+      - internal-network
+    working_dir: /var/www/app
+
+networks:
+  internal-network:
+    driver: bridge
