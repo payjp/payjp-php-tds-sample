@@ -58,6 +58,10 @@ $csrfToken = generateCsrfToken();
     <button type="submit">登録</button>
 </form>
 
+<br />
+
+<a href="/">戻る</a>
+
 </body>
 </html>
 

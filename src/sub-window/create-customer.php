@@ -29,3 +29,5 @@ $customer = Payjp\Customer::create([
 echo $customer->id . '<br />';
 echo $customer->email . '<br />';
 echo $customer->default_card . '<br />';
+
+echo '<a href="/">戻る</a>';
