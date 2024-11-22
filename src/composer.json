@@ -1,5 +1,6 @@
 {
     "require": {
-        "payjp/payjp-php": "^1.7"
+        "payjp/payjp-php": "^1.7",
+        "firebase/php-jwt": "^6.10"
     }
 }
