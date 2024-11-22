@@ -25,6 +25,8 @@ $customer = Payjp\Customer::create([
     'email' => $customerEmail,
 ]);
 
+// `$customerName` は DB に登録するとか。
+
 echo $customer->id . '<br />';
 echo $customer->email . '<br />';
 echo $customer->default_card . '<br />';
