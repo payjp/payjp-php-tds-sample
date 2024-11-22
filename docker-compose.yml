@@ -16,6 +16,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - PAYJP_PUBLIC_KEY=${PAYJP_PUBLIC_KEY}
+      - PAYJP_SECRET_KEY=${PAYJP_SECRET_KEY}
     volumes:
       - ./src:/var/www/app:cached
     networks:
