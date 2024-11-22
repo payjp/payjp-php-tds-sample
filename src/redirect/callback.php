@@ -9,7 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     exit;
 }
 
-// csrf token の検証などを行ってください。このサンプルでは本題と関係ないため省略します。
 session_start();
 
 // $customerName, $customerEmail などの入力値のバリデーションなどを行ってください。
