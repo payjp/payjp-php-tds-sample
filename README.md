@@ -30,13 +30,13 @@ Run the "diagnose" command to get more detailed diagnostics output.
 Composer はコンテナの中に含まれています。
 
 ```shell
-docker compose run --rm app composer install
+$ docker compose run --rm app composer install
 ```
 
 3. サーバーを起動してください。
 
 ```shell
-PAYJP_PUBLIC_KEY=お手持ちの公開鍵 PAYJP_SECRET_KEY=お手持ちの秘密鍵 docker compose up -d
+$ PAYJP_PUBLIC_KEY=お手持ちの公開鍵 PAYJP_SECRET_KEY=お手持ちの秘密鍵 docker compose up -d
 ```
 
 http://localhost へアクセスしてください。
