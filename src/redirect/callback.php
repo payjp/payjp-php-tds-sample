@@ -11,27 +11,30 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 
 session_start();
 
-// $customerName, $customerEmail などの入力値のバリデーションなどを行ってください。
-// このサンプルでは本題と関係ないため省略します。
-$customerName = $_SESSION['tds_input_data']['customer_name'] ?? '';
-$customerEmail = $_SESSION['tds_input_data']['customer_email'] ?? '';
+// セッションから保持していたトークンを再取得します。
 $payjpToken = $_SESSION['tds_input_data']['payjp_token'] ?? '';
 unset($_SESSION['tds_input_data']);
 
+// 3D セキュア認証が完了した後に、3Dセキュアフローを完了させます。
 Payjp\Payjp::$apiKey = $_ENV['PAYJP_SECRET_KEY'] ?? ''; // `sk_` から始まる秘密鍵を設定してください。
-// 3D セキュア認証が完了した後に、3Dセキュア認証フローを完了させます。
 $token = Payjp\Token::retrieve($payjpToken);
+
 // この時点での `$token->card->three_d_secure_status` の状態を見たりして処理を判断することもできます。
-$token->tdsFinish(); // 忘れがちなので注意してください。
-$customer = Payjp\Customer::create([
+
+// 3Dセキュアフロー完了します。忘れがちなので注意してください。
+$token->tdsFinish();
+
+// 3Dセキュアフローが完了したトークンを用いて、支払いを行います。
+$charge = Payjp\Charge::create([
     'card' => $token->id,
-    'email' => $customerEmail,
+    'amount' => 100,
+    'currency' => 'jpy',
 ]);
 
-// `$customerName` は DB に登録するとか。
+// 支払い後に必要な処理を行ってください。
 
-echo $customer->id . '<br />';
-echo $customer->email . '<br />';
-echo $customer->default_card . '<br />';
+echo '支払いが完了しました。<br />';
+echo $charge->id . '<br />';
+echo $charge->amount . '<br />';
 
 echo '<a href="/">戻る</a>';

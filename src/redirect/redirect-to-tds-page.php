@@ -13,16 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 session_start();
 verifyCsrfToken();
 
-// $customerName, $customerEmail などの入力値のバリデーションなどを行ってください。
-// このサンプルでは本題と関係ないため省略します。
-$customerName = $_POST['customer_name'] ?? '';
-$customerEmail = $_POST['customer_email'] ?? '';
+// トークンを取得します。
 $payjpToken = $_POST['payjp-token'] ?? '';
 
 // 入力内容をセッションに保存しておきます。
 $_SESSION['tds_input_data'] = [
-    'customer_name' => $customerName,
-    'customer_email' => $customerEmail,
     'payjp_token' => $payjpToken,
 ];
 

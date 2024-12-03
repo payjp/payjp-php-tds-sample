@@ -18,14 +18,13 @@ $csrfToken = generateCsrfToken();
     function onCreatedToken(response) {
         console.log(response);
         document.querySelector('#created-token').textContent = response.id;
-        document.querySelector('#customer-email').value = response.card.email;
     }
 </script>
 
-<h1>お客様フォーム例</h1>
+<h1>支払いフォーム例</h1>
 
-<form action="/sub-window/create-customer.php" method="post">
-    <label for="customer-name">お客様名 <input id="customer-name" type="text" name="customer_name"/></label>
+<form action="/sub-window/create-charge.php" method="post">
+    <p>おにぎり 100円</p>
 
     <div style="display: flex; gap: 1rem; align-items: center;">
         <div>
@@ -47,9 +46,8 @@ $csrfToken = generateCsrfToken();
         </div>
     </div>
     <br />
-    <input id="customer-email" type="hidden" name="customer_email">
     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken); ?>" />
-    <button type="submit">登録</button>
+    <button type="submit">支払う</button>
 </form>
 <br />
 <a href="/">戻る</a>

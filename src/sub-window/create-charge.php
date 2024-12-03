@@ -13,22 +13,21 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 session_start();
 verifyCsrfToken();
 
-// $customerName, $customerEmail などの入力値のバリデーションなどを行ってください。
-// このサンプルでは本題と関係ないため省略します。
-$customerName = $_POST['customer_name'] ?? '';
-$customerEmail = $_POST['customer_email'] ?? '';
+// トークンを取得します。
 $payjpToken = $_POST['payjp-token'] ?? '';
 
+// トークンを使って支払いを行います。
 Payjp\Payjp::$apiKey = $_ENV['PAYJP_SECRET_KEY'] ?? ''; // `sk_` から始まる秘密鍵を設定してください。
-$customer = Payjp\Customer::create([
+$charge = Payjp\Charge::create([
     'card' => $payjpToken,
-    'email' => $customerEmail,
+    'amount' => 100,
+    'currency' => 'jpy',
 ]);
 
-// `$customerName` は DB に登録するとか。
+// 支払い後に必要な処理を行ってください。
 
-echo $customer->id . '<br />';
-echo $customer->email . '<br />';
-echo $customer->default_card . '<br />';
+echo '支払いが完了しました。<br />';
+echo $charge->id . '<br />';
+echo $charge->amount . '<br />';
 
 echo '<a href="/">戻る</a>';
