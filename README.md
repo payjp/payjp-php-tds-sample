@@ -28,7 +28,7 @@ $ docker compose run --rm app composer install
 $ PAYJP_PUBLIC_KEY=お手持ちの公開鍵 PAYJP_SECRET_KEY=お手持ちの秘密鍵 docker compose up -d
 ```
 
-http://localhost へアクセスしてください。
+4. http://localhost へアクセスしてください。
 
 ※ 80番ポートでサーバーが起動することを想定しています。  
 ポートに関する起動エラーが出た場合は他の処理で80番ポートが使われていないか確認してください。
