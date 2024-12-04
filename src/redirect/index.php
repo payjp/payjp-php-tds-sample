@@ -47,10 +47,9 @@ $csrfToken = generateCsrfToken();
     </div>
     <br />
     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken); ?>" />
-    <button type="submit">登録</button>
+    <button type="submit">支払う</button>
 </form>
 <br />
 <a href="/">戻る</a>
 </body>
 </html>
-
