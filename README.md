@@ -28,6 +28,10 @@ $ docker compose run --rm app composer install
 $ PAYJP_PUBLIC_KEY=お手持ちの公開鍵 PAYJP_SECRET_KEY=お手持ちの秘密鍵 docker compose up -d
 ```
 
+**設定する鍵はテスト用のものを利用することを強く推奨いたします。**
+
+※環境変数については .env.example もあります。.env にコピーしてご利用ください。
+
 4. http://localhost へアクセスしてください。
 
 ※ 80番ポートでサーバーが起動することを想定しています。  
