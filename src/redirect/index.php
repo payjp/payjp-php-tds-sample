@@ -10,7 +10,7 @@ $csrfToken = generateCsrfToken();
 <html lang="ja">
 <head>
     <meta charset="UTF-8"/>
-    <title>PAY.JP サブウィンドウ型3Dセキュア実装サンプル</title>
+    <title>PAY.JP リダイレクト型3Dセキュア実装サンプル</title>
 </head>
 <body>
 
