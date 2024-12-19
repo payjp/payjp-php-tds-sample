@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     exit;
 }
 
+sleep(5);
 session_start();
 
 // セッションから保持していたトークンを再取得します。
