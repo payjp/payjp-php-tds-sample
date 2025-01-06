@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 session_start();
 verifyCsrfToken();
 
-// トークンを取得します。
+// 顧客IDを取得します。
 $customerCardId = $_POST['customer_card_id'] ?? '';
 
 // 顧客カードに対して3Dセキュア認証を開始します。
