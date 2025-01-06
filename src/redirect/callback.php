@@ -16,7 +16,7 @@ $payjpToken = $_SESSION['tds_input_data']['payjp_token'] ?? '';
 unset($_SESSION['tds_input_data']);
 
 // 3D セキュア認証が完了した後に、3Dセキュアフローを完了させます。
-Payjp\Payjp::$apiKey = $_ENV['PAYJP_SECRET_KEY'] ?? ''; // `sk_` から始まる秘密鍵を設定してください。
+Payjp\Payjp::$apiKey = $_ENV['PAYJP_SECRET_KEY'] ?? ''; // `PAYJP_SECRET_KEY` には `sk_` から始まる秘密鍵を設定してください。
 $token = Payjp\Token::retrieve($payjpToken);
 
 // この時点での `$token->card->three_d_secure_status` の状態を見たりして処理を判断することもできます。

@@ -17,7 +17,7 @@ verifyCsrfToken();
 $customerCardId = $_POST['customer_card_id'] ?? '';
 
 // 顧客カードに対して3Dセキュア認証を開始します。
-Payjp\Payjp::$apiKey = $_ENV['PAYJP_SECRET_KEY'] ?? ''; // `sk_` から始まる秘密鍵を設定してください。
+Payjp\Payjp::$apiKey = $_ENV['PAYJP_SECRET_KEY'] ?? ''; // `PAYJP_SECRET_KEY` には `sk_` から始まる秘密鍵を設定してください。
 $threeDSecureRequest = Payjp\ThreeDSecureRequest::create([
     'resource_id' => $customerCardId,
 ]);

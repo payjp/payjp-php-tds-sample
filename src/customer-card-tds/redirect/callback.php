@@ -16,7 +16,7 @@ $threeDSecureRequestId = $_SESSION['tds_input_data']['three_d_request_id'] ?? ''
 unset($_SESSION['tds_input_data']);
 
 // 3Dセキュア認証が完了した後に、3Dセキュアフローを完了させます。
-Payjp\Payjp::$apiKey = $_ENV['PAYJP_SECRET_KEY'] ?? ''; // `sk_` から始まる秘密鍵を設定してください。
+Payjp\Payjp::$apiKey = $_ENV['PAYJP_SECRET_KEY'] ?? ''; // `PAYJP_SECRET_KEY` には `sk_` から始まる秘密鍵を設定してください。
 $threeDSecureRequest = Payjp\ThreeDSecureRequest::retrieve($threeDSecureRequestId);
 
 // この時点での `$threeDSecureRequest->three_d_secure_status` の状態を見て処理を判断します。
