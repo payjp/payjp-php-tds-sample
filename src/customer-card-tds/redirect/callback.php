@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 
 session_start();
 
-// セッションから保持していたトークンを再取得します。
+// セッションから保持していた顧客IDを再取得します。
 $threeDSecureRequestId = $_SESSION['tds_input_data']['three_d_request_id'] ?? '';
 unset($_SESSION['tds_input_data']);
 
