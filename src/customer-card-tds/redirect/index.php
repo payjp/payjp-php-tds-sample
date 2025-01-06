@@ -13,7 +13,7 @@ $csrfToken = generateCsrfToken();
     <title>PAY.JP 顧客カードに対する3Dセキュア（リダイレクト型実装例）</title>
 </head>
 <body>
-<form action="/customer-card-tds/redirect/redirect-to-rds-page.php" method="post">
+<form action="/customer-card-tds/redirect/redirect-to-tds-page.php" method="post">
     <p>顧客カードIDを入力してください。</p>
     <p><small>※ サンプルなのでテストモードにて作成したカードIDを利用することを強く推奨します。</small></p>
 
