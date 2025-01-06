@@ -20,12 +20,8 @@ Payjp\Payjp::$apiKey = $_ENV['PAYJP_SECRET_KEY'] ?? ''; // `sk_` から始まる
 $threeDSecureRequest = Payjp\ThreeDSecureRequest::retrieve($threeDSecureRequestId);
 
 // この時点での `$threeDSecureRequest->three_d_secure_status` の状態を見て処理を判断します。
-if ($threeDSecureRequest->three_d_secure_status !== 'verified') {
-    echo '顧客カードに対する3Dセキュア認証に失敗しました。<br />';
-} else {
-    echo '顧客カードに対する3Dセキュア認証に成功しました。<br />';
-}
 
+echo '顧客カードに対する3Dセキュア認証が完了しました。<br />';
 echo $threeDSecureRequest->id . '<br />';
 echo $threeDSecureRequest->resource_id . '<br />';
 echo $threeDSecureRequest->state . '<br />';
