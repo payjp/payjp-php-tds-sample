@@ -17,7 +17,7 @@ verifyCsrfToken();
 $payjpToken = $_POST['payjp-token'] ?? '';
 
 // トークンを使って支払いを行います。
-Payjp\Payjp::$apiKey = $_ENV['PAYJP_SECRET_KEY'] ?? ''; // `sk_` から始まる秘密鍵を設定してください。
+Payjp\Payjp::$apiKey = $_ENV['PAYJP_SECRET_KEY'] ?? ''; // `PAYJP_SECRET_KEY` には `sk_` から始まる秘密鍵を設定してください。
 $charge = Payjp\Charge::create([
     'card' => $payjpToken,
     'amount' => 100,
