@@ -30,7 +30,7 @@ $csrfToken = generateCsrfToken();
         <div>
             <script
                     type="text/javascript"
-                    src="https://checkout.pay.jp/prerelease"
+                    src="https://checkout.pay.jp"
                     class="payjp-button"
                     data-payjp-key="<?php echo htmlspecialchars($_ENV['PAYJP_PUBLIC_KEY'] ?? ''); // `pk_` から始まる公開鍵を設定してください。 ?>"
                     data-payjp-three-d-secure="true"
