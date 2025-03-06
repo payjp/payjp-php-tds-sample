@@ -5,6 +5,11 @@ require_once __DIR__ . '/../libs/csrfToken.php';
 
 session_start();
 $csrfToken = generateCsrfToken();
+$apiKey = $_ENV['PAYJP_PUBLIC_KEY'];
+if (!$apiKey) {
+    echo 'PAYJP_PUBLIC_KEY環境変数がセットされていません。README.mdを参照し、pk_から始まる公開鍵をセットしてください。';
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -32,7 +37,7 @@ $csrfToken = generateCsrfToken();
                 type="text/javascript"
                 src="https://checkout.pay.jp"
                 class="payjp-button"
-                data-payjp-key="<?php echo htmlspecialchars($_ENV['PAYJP_PUBLIC_KEY'] ?? ''); // `pk_` から始まる公開鍵を設定してください。 ?>"
+                data-payjp-key="<?php echo htmlspecialchars($apiKey); ?>"
                 data-payjp-three-d-secure="true"
                 data-payjp-three-d-secure-workflow="subwindow"
                 data-payjp-extra-attribute-email
