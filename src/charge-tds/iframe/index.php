@@ -87,6 +87,7 @@ if (!$apiKey) {
 
 <script src="https://js.pay.jp/v2/pay.js"></script>
 <script type="text/javascript">
+    // payjp.js v2 を初期化し、カード入力フォームを作成します。
     const payjp = Payjp("<?php echo htmlspecialchars($apiKey); ?>");
     const elements = payjp.elements();
     const cardElement = elements.create('card');
@@ -133,6 +134,11 @@ if (!$apiKey) {
         }
 
         try {
+            // ========================================
+            // Step 1: トークンを作成
+            // ========================================
+            // カード情報からトークンを作成します。
+            // 3Dセキュアに必要な name, email, phone も一緒に送信します。
             const tokenResponse = await payjp.createToken(cardElement, {
                 card: {
                     name: name || undefined,
@@ -145,6 +151,11 @@ if (!$apiKey) {
                 throw new Error(tokenResponse.error.message || 'トークン作成に失敗しました。');
             }
 
+            // ========================================
+            // Step 2: 支払いを作成（サーバーサイド）
+            // ========================================
+            // トークンをサーバーに送信し、three_d_secure: true で支払いを作成します。
+            // この時点では支払いは保留状態です。
             const createParams = new URLSearchParams();
             createParams.append('payjp-token', tokenResponse.id);
             createParams.append('csrf_token', formData.get('csrf_token'));
@@ -162,15 +173,25 @@ if (!$apiKey) {
                 throw new Error(createJson.message || '支払い作成に失敗しました。');
             }
 
+            // ========================================
+            // Step 3: 3Dセキュア認証（iframe）
+            // ========================================
+            // openThreeDSecureIframe() を呼び出すと、iframe で3Dセキュア認証画面が表示されます。
+            // ユーザーが認証を完了すると Promise が解決されます。
             const chargeId = createJson.charge_id;
             let tdsErrorText = '';
 
             try {
                 await payjp.openThreeDSecureIframe(chargeId);
             } catch (error) {
+                // 認証がキャンセルされた場合や失敗した場合はここに来ます。
                 tdsErrorText = error && error.message ? error.message : String(error);
             }
 
+            // ========================================
+            // Step 4: 支払いを確定（サーバーサイド）
+            // ========================================
+            // 3Dセキュア認証後、サーバーで tdsFinish() を呼び出して支払いを確定します。
             const finishParams = new URLSearchParams();
             finishParams.append('charge_id', chargeId);
             finishParams.append('csrf_token', formData.get('csrf_token'));
@@ -191,6 +212,7 @@ if (!$apiKey) {
                 throw new Error(finishJson.message || '支払い確定に失敗しました。');
             }
 
+            // 支払い完了
             showResult(
                 '<p class="status">支払いが完了しました。</p>' +
                 '<p>Charge ID: ' + finishJson.charge_id + '</p>' +

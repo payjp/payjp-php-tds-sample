@@ -1,4 +1,10 @@
 <?php
+/**
+ * 支払い時3Dセキュア - 支払い確定エンドポイント
+ *
+ * 3Dセキュア認証完了後に呼び出され、支払いを確定します。
+ * 重要: tdsFinish() を呼び出さないと支払いは完了しません。
+ */
 declare(strict_types=1);
 
 require_once __DIR__ . '/../../vendor/autoload.php';
@@ -22,12 +28,17 @@ try {
         throw new RuntimeException('支払いIDが取得できませんでした。');
     }
 
+    // `PAYJP_SECRET_KEY` には `sk_` から始まる秘密鍵を設定してください。
     Payjp\Payjp::$apiKey = $_ENV['PAYJP_SECRET_KEY'] ?? '';
 
+    // 支払いを取得して3Dセキュアのステータスを確認します。
     $charge = Payjp\Charge::retrieve($chargeId);
     $threeDSecureStatus = $charge->three_d_secure_status ?? '';
 
+    // 3Dセキュアが完了している場合（attempted または verified）、支払いを確定します。
     if ($threeDSecureStatus === 'attempted' || $threeDSecureStatus === 'verified') {
+        // tdsFinish() を呼び出して支払いを確定します。
+        // 重要: この呼び出しを忘れると支払いは保留状態のままになります。
         $charge = $charge->tdsFinish();
 
         echo json_encode([
@@ -38,6 +49,7 @@ try {
         exit;
     }
 
+    // 3Dセキュアが完了していない場合はエラーを返します。
     $tdsError = $_POST['tds_error'] ?? '';
     $message = '3Dセキュアが完了していないため支払いを確定できません。';
     if ($tdsError !== '') {
