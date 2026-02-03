@@ -17,30 +17,39 @@ if (!$apiKey) {
     <meta charset="UTF-8"/>
     <title>PAY.JP 支払い時3Dセキュア実装サンプル（iframe型）</title>
     <style>
-        body {
-            font-family: sans-serif;
-        }
         .form-row {
             margin-bottom: 1rem;
         }
-        #card-element {
-            padding: 12px;
-            border: 1px solid #cbd5e1;
+        .form-row label {
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        .form-row input {
+            padding: 8px;
+            border: 1px solid #ccc;
             border-radius: 4px;
-            max-width: 420px;
+            width: 300px;
+        }
+        .form-row small {
+            display: block;
+            color: #666;
+        }
+        #card-element {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            max-width: 300px;
         }
         #card-errors {
-            color: #b91c1c;
+            color: red;
             margin-top: 0.5rem;
         }
         #result {
-            margin-top: 1.5rem;
-        }
-        .note {
-            color: #475569;
+            margin-top: 1rem;
         }
         .status {
             font-weight: bold;
+            color: green;
         }
     </style>
 </head>
@@ -49,29 +58,23 @@ if (!$apiKey) {
 <p class="note">トークン作成時ではなく、支払い作成後に3Dセキュア認証を行うサンプルです。</p>
 
 <form id="payment-form">
+    <p>おにぎり 100円</p>
     <div class="form-row">
-        <label>
-            カード名義
-            <input type="text" name="cardholder_name" placeholder="TARO YAMADA" autocomplete="cc-name" />
-        </label>
-    </div>
-    <div class="form-row">
-        <label>
-            メールアドレス
-            <input type="email" name="email" placeholder="sample@example.com" autocomplete="email" />
-        </label>
-    </div>
-    <div class="form-row">
-        <label>
-            電話番号
-            <input type="tel" name="phone" placeholder="09012345678" autocomplete="tel" />
-            <small style="color: #64748b;">※ 日本の番号は自動でE.164形式に変換されます</small>
-        </label>
-    </div>
-    <div class="form-row">
-        <p>おにぎり 100円</p>
         <div id="card-element"></div>
         <div id="card-errors" role="alert"></div>
+    </div>
+    <div class="form-row">
+        <label>カード名義</label>
+        <input type="text" name="cardholder_name" placeholder="TARO YAMADA" autocomplete="cc-name" />
+    </div>
+    <div class="form-row">
+        <label>メールアドレス</label>
+        <input type="email" name="email" placeholder="sample@example.com" autocomplete="email" />
+    </div>
+    <div class="form-row">
+        <label>電話番号</label>
+        <input type="tel" name="phone" placeholder="09012345678" autocomplete="tel" />
+        <small>※ 日本の番号は自動でE.164形式に変換されます</small>
     </div>
     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken); ?>" />
     <button id="submit-button" type="submit">支払いを開始</button>
