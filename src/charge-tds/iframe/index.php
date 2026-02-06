@@ -87,16 +87,31 @@ if (!$apiKey) {
 
 <script src="https://js.pay.jp/v2/pay.js"></script>
 <script type="text/javascript">
+    function debug() {
+        console.log('history', history);
+    }
+    debug()
+    setInterval(debug, 1000);
     // payjp.js v2 を初期化し、カード入力フォームを作成します。
     const payjp = Payjp("<?php echo htmlspecialchars($apiKey); ?>");
     const elements = payjp.elements();
     const cardElement = elements.create('card');
     cardElement.mount('#card-element');
+    cardElement.update({style: {base: {fontSize: '11px'}}})  // これでは履歴が増えない
+    // setTimeout(() => {
+    //     cardElement.update({style: {base: {fontSize: '11px'}}})
+    // }, 1000);
+    // これで履歴が増える
 
     const form = document.getElementById('payment-form');
     const submitButton = document.getElementById('submit-button');
     const cardErrors = document.getElementById('card-errors');
     const result = document.getElementById('result');
+    cardElement.addEventListener('focus', (e) => {
+        console.log('focus -- ', e);
+        // これで履歴が増える
+        cardElement.update({style: {base: {fontSize: '11px'}}})
+    });
 
     function setBusy(isBusy) {
         submitButton.disabled = isBusy;
